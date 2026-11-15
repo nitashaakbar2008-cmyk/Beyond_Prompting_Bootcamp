@@ -1,0 +1,15 @@
+{
+  "name": "lumiere-books",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lumière Books: premium online bookstore storefront with a Mini CRM (static site, LocalStorage persistence).",
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check assistant/assistant.js && node --check ai-backend/chat-handler.mjs",
+    "export-catalogue": "node scripts/export-catalogue.mjs",
+    "validate-answer": "node scripts/validate-chatbot-answer.mjs"
+  },
+  "engines": { "node": ">=18" },
+  "license": "UNLICENSED"
+}

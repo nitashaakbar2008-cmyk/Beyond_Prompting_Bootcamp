@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LUMIÈRE BOOKS</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/styles/main.css">
+<link rel="stylesheet" href="assistant/assistant.css">
+</head><body>
+<div class="ann">Discover your next favourite book — Explore, Learn and Grow.</div>
+<header><div class="wrap bar">
+<a class="logo" href="#home">LUMIÈRE BOOKS</a>
+<button class="btn alt menu" id="mb" aria-expanded="false" aria-controls="nv">Menu</button>
+<nav id="nv" aria-label="Main"><a href="#home" data-n="home">Home</a><a href="#shop" data-n="shop">Explore Books</a><a href="#categories" data-n="categories">Categories</a><a href="#about" data-n="about">About Us</a><a href="#contact" data-n="contact">Contact</a></nav>
+<input class="search" id="q" type="search" placeholder="Search title, author or topic" aria-label="Search books">
+<a class="ic" href="#wishlist" aria-label="Wishlist">♡<span class="badge" id="wcount">0</span></a><a class="ic" href="#orders">Orders</a><a class="ic" href="#admin">Admin</a><a class="ic" href="#cart" aria-label="Cart">Cart<span class="badge" id="count">0</span></a>
+</div></header>
+<main class="wrap" id="app" tabindex="-1"></main>
+<footer><div class="wrap"><div class="fg">
+<div><strong>LUMIÈRE BOOKS</strong><p>Demo storefront. The catalogue is fictional demonstration data and not a publisher-authorised listing. No real payments or deliveries occur. Data is saved only in this browser (LocalStorage).</p></div>
+<div><strong>Help</strong><a href="#info-faq">FAQ</a><a href="#info-shipping">Shipping information</a><a href="#info-returns">Returns and refunds</a><a href="#info-privacy">Privacy policy</a><a href="#info-terms">Terms and conditions</a><a href="#admin">Admin dashboard (demo)</a></div>
+<div><strong>Contact</strong><p class="meta" style="margin:0">hello@nexusbooks.demo<br>+92 300 0000000<br>Islamabad, Pakistan (demo)</p><a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a><a href="https://x.com" target="_blank" rel="noopener">X</a></div>
+<form id="nl" novalidate><strong>Newsletter (demo)</strong><label for="nle">Email address</label><input id="nle" type="email" autocomplete="email"><div class="err" id="nlerr" role="alert"></div><button class="btn" type="submit">Subscribe</button></form>
+</div></div></footer>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="src/utils/storage.js"></script>
+<script src="src/data/catalogue.js"></script>
+<script src="src/services/seed.js"></script>
+<script src="src/utils/helpers.js"></script>
+<script src="src/services/cart.js"></script>
+<script src="src/storefront/views.js"></script>
+<script src="src/storefront/assistant-eyes.js"></script>
+<script src="src/storefront/events.js"></script>
+<script src="src/admin/admin.js"></script>
+<script src="src/storefront/reviews-wishlist.js"></script>
+<script src="src/admin/product-form.js"></script>
+<script src="src/main.js"></script>
+<script src="assistant/assistant.js"></script>
+</body></html>

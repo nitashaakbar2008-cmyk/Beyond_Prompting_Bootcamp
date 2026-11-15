@@ -1,0 +1,16 @@
+# Render.com blueprint (optional). Creates one Node web service. You add the secret key in the Render dashboard; it is never stored in this file.
+services:
+  - type: web
+    name: lumiere-books
+    runtime: node
+    plan: free
+    buildCommand: echo "no build step"
+    startCommand: node server.mjs
+    healthCheckPath: /api/health
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-sonnet-5-5
+      - key: NODE_VERSION
+        value: "22"

@@ -1,0 +1,41 @@
+/* Lumi, the Lumière Books reading companion. Palette matches the storefront: forest green, dark teal, ivory, antique gold. */
+#lm-root{--lm-forest:#123B34;--lm-teal:#1B5149;--lm-ivory:#F4F0E8;--lm-paper:#FBF9F4;--lm-gold:#C6A15B;--lm-ink:#252D29;font-family:var(--sans,system-ui,sans-serif)}
+#lm-fab{position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:50;width:62px;height:62px;border-radius:50%;border:1.5px solid var(--lm-gold);background:var(--lm-forest);color:var(--lm-ivory);cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.35);animation:lm-float 4.5s ease-in-out infinite;transition:transform .2s}
+#lm-fab:hover{transform:scale(1.06)}#lm-fab::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--lm-gold);opacity:0;animation:lm-pulse 3.6s ease-out infinite}
+#lm-fab[aria-expanded=true]{animation:none}#lm-fab[aria-expanded=true]::after{display:none}
+#lm-fab:focus-visible,#lm-root button:focus-visible,#lm-root a:focus-visible,#lm-in:focus-visible{outline:3px solid var(--lm-gold);outline-offset:2px}
+.lm-tip{position:fixed;right:90px;bottom:calc(34px + env(safe-area-inset-bottom,0px));z-index:50;background:var(--lm-ivory);color:var(--lm-forest);border:1px solid var(--lm-gold);border-radius:12px;padding:8px 14px;font-size:.85rem;box-shadow:0 4px 14px rgba(0,0,0,.25);max-width:210px}
+@keyframes lm-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes lm-pulse{0%{opacity:.7;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.35)}}
+#lm-panel{position:fixed;right:18px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:50;width:390px;max-width:calc(100vw - 24px);height:620px;max-height:calc(100vh - 120px);background:var(--lm-paper);color:var(--lm-ink);border:1px solid var(--lm-gold);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden;padding:0;animation:lm-in .2s ease-out}
+#lm-panel[hidden]{display:none}@keyframes lm-in{from{opacity:0;transform:translateY(12px)}}
+.lm-head{background:var(--lm-forest);color:var(--lm-ivory);padding:14px 16px;display:flex;gap:12px;align-items:center;border-bottom:2px solid var(--lm-gold)}
+.lm-head h2{margin:0;font:600 1.05rem var(--serif,Georgia,serif);color:var(--lm-ivory);line-height:1.2}.lm-head p{margin:2px 0 0;font-size:.78rem;color:#c9d6cf}
+.lm-av{flex:none;width:40px;height:40px;border-radius:50%;background:var(--lm-teal);border:1px solid var(--lm-gold);display:grid;place-items:center}
+.lm-x{margin-left:auto;background:none;border:0;color:var(--lm-ivory);font-size:1.6rem;line-height:1;cursor:pointer;border-radius:8px;padding:2px 8px}.lm-x:hover{background:var(--lm-teal)}
+#lm-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth}
+.lm-m{max-width:88%;padding:10px 13px;border-radius:14px;font-size:.93rem;line-height:1.5;overflow-wrap:anywhere}
+.lm-m p{margin:0 0 6px}.lm-m p:last-child{margin:0}.lm-m ul{margin:4px 0 4px 18px;padding:0}
+.lm-bot{align-self:flex-start;background:#fff;border:1px solid #e3ded2;border-top-left-radius:4px}
+.lm-me{align-self:flex-end;background:var(--lm-forest);color:var(--lm-ivory);border-top-right-radius:4px}
+.lm-dots{display:inline-flex;gap:4px;padding:4px 2px}.lm-dots i{width:7px;height:7px;border-radius:50%;background:var(--lm-teal);opacity:.35;animation:lm-dot 1.2s infinite}.lm-dots i:nth-child(2){animation-delay:.2s}.lm-dots i:nth-child(3){animation-delay:.4s}
+@keyframes lm-dot{0%,100%{opacity:.25}50%{opacity:1}}
+.lm-cards{display:grid;gap:10px;align-self:stretch}
+.lm-card{display:grid;grid-template-columns:62px 1fr;gap:10px;background:#fff;border:1px solid #e3ded2;border-left:3px solid var(--lm-gold);border-radius:10px;padding:10px}
+.lm-card .cv{width:62px;border-radius:2px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.lm-card h3{margin:0;font:600 .95rem var(--serif,Georgia,serif);color:var(--lm-forest)}.lm-card .a{font-size:.78rem;color:#5a665f}
+.lm-card .p{font-weight:600;color:var(--lm-forest);font-size:.9rem}.lm-card .s{font-size:.78rem}.lm-ok{color:#2f6b47}.lm-no{color:#a23b2a}
+.lm-card .d{font-size:.78rem;color:#4a554f;margin:2px 0 6px}.lm-acts{display:flex;gap:6px;flex-wrap:wrap}
+.lm-btn{font:600 .78rem var(--sans,sans-serif);background:var(--lm-forest);color:var(--lm-ivory);border:1px solid var(--lm-forest);border-radius:8px;padding:6px 10px;cursor:pointer;text-decoration:none}
+.lm-btn.alt{background:transparent;color:var(--lm-forest);border-color:var(--lm-gold)}.lm-btn:hover{filter:brightness(1.15)}.lm-btn:disabled{opacity:.5;cursor:not-allowed}
+.lm-chips{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 10px}.lm-chip{font:500 .78rem var(--sans,sans-serif);background:var(--lm-ivory);color:var(--lm-forest);border:1px solid var(--lm-gold);border-radius:99px;padding:5px 11px;cursor:pointer}.lm-chip:hover{background:#e9e3d3}
+#lm-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid #e3ded2;background:#fff;align-items:flex-end}
+#lm-in{flex:1;resize:none;border:1px solid #c9c2b2;border-radius:12px;padding:9px 12px;font:inherit;font-size:.93rem;max-height:110px;background:var(--lm-paper);color:var(--lm-ink)}
+#lm-send{width:40px;height:40px;border-radius:50%;border:0;background:var(--lm-forest);color:var(--lm-gold);cursor:pointer;display:grid;place-items:center;flex:none}#lm-send:disabled{opacity:.45;cursor:not-allowed}
+.lm-note{margin:0;padding:6px 14px 10px;font-size:.7rem;color:#5a665f;background:#fff;text-align:center}
+.lm-err{align-self:flex-start;background:#fbeeea;border:1px solid #e3b5a9;color:#7d2d20;border-radius:12px;padding:10px 12px;font-size:.88rem}.lm-err .lm-btn{margin-top:6px;display:block}
+.lm-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:520px){#lm-panel{right:8px;left:8px;width:auto;max-width:none;bottom:calc(88px + env(safe-area-inset-bottom,0px));height:calc(100vh - 110px)}.lm-tip{display:none}}
+@media(prefers-reduced-motion:reduce){#lm-fab,#lm-fab::after,#lm-panel,.lm-dots i,#lm-log{animation:none!important;scroll-behavior:auto;transition:none!important}}
+
+#lm-root [hidden]{display:none!important}
