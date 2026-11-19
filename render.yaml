@@ -8,9 +8,9 @@ services:
     startCommand: node server.mjs
     healthCheckPath: /api/health
     envVars:
-      - key: ANTHROPIC_API_KEY
+      - key: GROQ_API_KEY
         sync: false
-      - key: ANTHROPIC_MODEL
-        value: claude-sonnet-5-5
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
       - key: NODE_VERSION
         value: "22"

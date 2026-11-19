@@ -109,11 +109,11 @@ The chat window fits a phone screen.
 | `server.mjs` | The small server that runs the website and the AI chat connection |
 | `ai-backend/`, `context/` | Secure AI chat code, the catalogue file and store policies Lumi uses |
 | `data-api/`, `data-adapter/`, `database/` | Optional Supabase database add-on (not used by the website yet) |
-| `scripts/`, `api/chat.js`, `render.yaml` | Helper scripts and optional hosting files |
+| `scripts/`, `api/chat.js`, `netlify/`, `netlify.toml`, `render.yaml` | Helper scripts and hosting adapters/configuration |
 | `package.json`, `.env.example`, `.gitignore` | Project settings and a template for your secret keys |
 
 ## Technologies
-HTML, CSS, JavaScript (no frameworks), Node.js (a tiny server with no extra packages), browser LocalStorage for saving data, and an AI service for Lumi (Anthropic API). There are **no npm dependencies**, so nothing needs installing besides Node.js.
+HTML, CSS, JavaScript (no frameworks), Node.js (a tiny server with no extra packages), browser LocalStorage for saving data, and Groq's API for Lumi. There are **no npm dependencies**, so nothing needs installing besides Node.js.
 
 ## Open it in Visual Studio Code
 1. Unzip the download.
@@ -125,20 +125,41 @@ Install **Node.js 18 or newer** from nodejs.org (the LTS button), then check it 
 
 ## AI assistant setup (optional)
 The website works without this. Only Lumi's replies need a key.
-1. Create an API key in the Anthropic Console (usage is billed by Anthropic).
+1. Create an API key in the [Groq Console](https://console.groq.com/keys).
 2. Copy the file `.env.example` and name the copy `.env`.
-3. Open `.env`, and replace `paste-your-anthropic-api-key-here` with your key. Never share or upload this file (it is already ignored by git).
+3. Open `.env`, and replace `your-groq-api-key-here` with your key. Never share or upload this file (it is already ignored by git).
+
+### Deploying on Netlify
+The project is configured for Netlify: `netlify.toml` publishes the storefront and routes `/api/chat` to a server-side function, so the browser never receives the API key. Go Live is not a deployment host and cannot run this function.
+
+1. Push the project folder (the one containing `netlify.toml` and `package.json`) to a GitHub repository. Do not commit `.env`; it is ignored by git.
+2. In Netlify, choose **Add new site → Import an existing project** and connect that repository. If the project is inside a subfolder in the repository, set that folder as the Netlify base directory.
+3. Keep the build settings from `netlify.toml` (`publish = "."`, functions in `netlify/functions`); no build command or dependency installation is required.
+4. In the Netlify site's environment variables, add `GROQ_API_KEY` with your Groq API key. Do not put the key in frontend code or share it in chat. `GROQ_MODEL` is optional; the default is `openai/gpt-oss-120b`.
+5. Deploy or trigger a redeploy, open the assigned `*.netlify.app` URL, and send Lumi a test message. You can share that URL.
+
+If Lumi reports that a Groq API rate or usage limit has been reached, check the key's limits and usage in the Groq Console or wait for the limit to reset before retrying.
 
 ## Run the website
-In the terminal type:
-```bash
+Use the Node server rather than VS Code's **Go Live** button. Go Live serves static files only, so it cannot run the `/api/chat` endpoint Lumi needs.
+
+In the VS Code terminal, from the folder containing `package.json`, run:
+```powershell
+# Windows PowerShell
+npm.cmd start
+
+# macOS/Linux
 npm start
 ```
-Then open:
+Then open `http://localhost:5173/` in your browser (not the Go Live port). This runs the storefront and AI chat backend together. Keep the terminal open while using the site.
+
+Also available:
 - Storefront: http://localhost:5173/
 - CRM dashboard: http://localhost:5173/admin (click "Enter Merchant Dashboard"; there is no password)
 
 Stop the server with Ctrl+C. To use another port: `PORT=3000 npm start` (Mac/Linux) or `$env:PORT=3000; npm start` (Windows PowerShell).
+
+Run the project checks and focused function tests with `npm run check` and `npm test`.
 
 ## Good to know
 - Everything you do (cart, orders, inquiries, product edits) is saved in your own browser only, not in a shared database. Clearing browser data resets it.

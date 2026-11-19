@@ -3,6 +3,8 @@
 (function(){
 'use strict';
 var ENDPOINT=window.LUMIERE_CHAT_ENDPOINT||'/api/chat',STORE='lumiere.lumi.v1';
+var SERVER_REQUIRED='Lumi’s chat API is unavailable on this host. Go Live only serves static files. Locally, run `npm.cmd start`; for a shared site, deploy the Netlify function and configure GROQ_API_KEY.';
+var KEY_REQUIRED='Lumi’s AI key is not configured. Set GROQ_API_KEY in the server environment and redeploy; for local development, add it to .env.';
 var history=[],busy=false,pending=null,msgs=[];
 var $=function(s,r){return(r||document).querySelector(s)};
 function esc(s){return String(s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
@@ -40,9 +42,11 @@ function setBusy(b){busy=b;send.disabled=b||!input.value.trim();log.setAttribute
 async function sseTransport(o){
   var r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:o.messages,live:o.live})});
   if(!r.ok){var j={};try{j=await r.json()}catch(e){}
-    if(r.status===503&&j.error==='not_configured')o.onError('Lumi isn’t connected to its AI service yet. You can still browse with Explore Books or the search bar.',false);
+    if(r.status===503&&j.error==='not_configured')o.onError(KEY_REQUIRED,false);
     else if(r.status===429)o.onError('Lumi is receiving a lot of questions right now. Please wait a moment and try again.',true);
+    else if(r.status===404||r.status===405)o.onError(SERVER_REQUIRED,false);
     else o.onError('Lumi is temporarily unavailable. Please try again shortly.',true);return}
+  if(!/^text\/event-stream\b/i.test(r.headers.get('content-type')||'')){o.onError(SERVER_REQUIRED,false);return}
   var rd=r.body.getReader(),dec=new TextDecoder(),buf='';
   for(;;){var c=await rd.read();if(c.done)break;buf+=dec.decode(c.value,{stream:true});var i;
     while((i=buf.indexOf('\n\n'))>=0){var blk=buf.slice(0,i);buf=buf.slice(i+2);var ev='',data='';blk.split('\n').forEach(function(l){if(l.indexOf('event:')===0)ev=l.slice(6).trim();else if(l.indexOf('data:')===0)data+=l.slice(5).trim()});
