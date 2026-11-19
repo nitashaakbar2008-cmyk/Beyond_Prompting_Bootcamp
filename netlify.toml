@@ -2,6 +2,10 @@
   publish = "."
   functions = "netlify/functions"
 
+[build.environment]
+  # These non-secret settings appear in source; actual API keys remain scanned.
+  SECRETS_SCAN_OMIT_KEYS = "GROQ_MODEL,PORT"
+
 [functions]
   node_bundler = "esbuild"
   included_files = ["context/book-catalogue.json", "context/store-policies.md"]

@@ -127,7 +127,7 @@ Install **Node.js 18 or newer** from nodejs.org (the LTS button), then check it 
 The website works without this. Only Lumi's replies need a key.
 1. Create an API key in the [Groq Console](https://console.groq.com/keys).
 2. Copy the file `.env.example` and name the copy `.env`.
-3. Open `.env`, and replace `your-groq-api-key-here` with your key. Never share or upload this file (it is already ignored by git).
+3. Open `.env` and set `GROQ_API_KEY` to your key. Never share or upload this file (it is already ignored by git).
 
 ### Deploying on Netlify
 The project is configured for Netlify: `netlify.toml` publishes the storefront and routes `/api/chat` to a server-side function, so the browser never receives the API key. Go Live is not a deployment host and cannot run this function.
@@ -135,7 +135,7 @@ The project is configured for Netlify: `netlify.toml` publishes the storefront a
 1. Push the project folder (the one containing `netlify.toml` and `package.json`) to a GitHub repository. Do not commit `.env`; it is ignored by git.
 2. In Netlify, choose **Add new site → Import an existing project** and connect that repository. If the project is inside a subfolder in the repository, set that folder as the Netlify base directory.
 3. Keep the build settings from `netlify.toml` (`publish = "."`, functions in `netlify/functions`); no build command or dependency installation is required.
-4. In the Netlify site's environment variables, add `GROQ_API_KEY` with your Groq API key. Do not put the key in frontend code or share it in chat. `GROQ_MODEL` is optional; the default is `openai/gpt-oss-120b`.
+4. In the Netlify site's environment variables, add `GROQ_API_KEY` with your Groq API key. Do not put the key in frontend code or share it in chat. `GROQ_MODEL` is optional; the default is `openai/gpt-oss-120b`. The Netlify chat function does not use `PORT` or the optional `SUPABASE_*` variables; remove them from Netlify if you added them there.
 5. Deploy or trigger a redeploy, open the assigned `*.netlify.app` URL, and send Lumi a test message. You can share that URL.
 
 If Lumi reports that a Groq API rate or usage limit has been reached, check the key's limits and usage in the Groq Console or wait for the limit to reset before retrying.
