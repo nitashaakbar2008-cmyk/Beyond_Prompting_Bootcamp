@@ -3,8 +3,15 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createChatHandler} from '../../ai-backend/chat-handler.mjs';
 
+// Netlify bundles this file to CommonJS, where import.meta.url is undefined, so never assume it exists.
+function moduleDir(){
+  try{if(typeof __dirname==='string')return __dirname}catch{}
+  try{const url=import.meta&&import.meta.url;if(url)return path.dirname(fileURLToPath(url))}catch{}
+  return null;
+}
 function findRoot(){
-  for(const start of [process.cwd(),path.dirname(fileURLToPath(import.meta.url))]){
+  const starts=[process.env.LAMBDA_TASK_ROOT,process.cwd(),moduleDir()].filter(Boolean);
+  for(const start of starts){
     let dir=start;
     for(let i=0;i<6;i++){
       if(fs.existsSync(path.join(dir,'context','book-catalogue.json')))return dir;
